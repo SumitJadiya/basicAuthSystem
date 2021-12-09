@@ -1,6 +1,7 @@
 require("dotenv").config()
 require("./config/database").connect()
 const express = require('express')
+var bcrypt = require('bcryptjs');
 
 const User = require('./model/user')
 
@@ -22,6 +23,15 @@ app.post('/register', async (req, res)=> {
 
     if(existingUser)
         res.status(401).send("User Already exist!")
+
+    const myEncPassword = await bcrypt.hash(password, 10)
+    
+    User.create({
+        firstName,
+        lastName,
+        email : email.toLowerCase(),
+        password: myEncPassword
+    })
 
     res.status(200).send('User Registered!')
 })
