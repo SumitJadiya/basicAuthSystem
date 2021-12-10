@@ -2,10 +2,12 @@ require('dotenv').config();
 var jwt = require('jsonwebtoken');
 
 const auth = (req, res, next) => {
+    console.log(req.cookies);
+
     const token =
-        req.header('Authorization')?.replace('Bearer ', '') ||
         req.cookies.token ||
-        req.body.token;
+        req.body.token ||
+        req.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) res.status(403).json({ message: 'token is missing' });
 

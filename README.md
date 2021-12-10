@@ -16,19 +16,24 @@ bcryptjs library used for encryption purpose
 
 #### Token [https://jwt.io/introduction]
 
-- most private thing for a developer.
-- Expire the token after some amount of time
-- Token part -> Header, Payload, Signature
-- Library used - jsonwebtoken
+-   most private thing for a developer.
+-   Expire the token after some amount of time
+-   Token part -> Header, Payload, Signature
+-   Library used - jsonwebtoken
 
 #### Protecting the route (using token)
 
-- use middleware
-- check for token presence
-- verify the token
-- extract info from payload
-- next()
+-   use middleware
+-   check for token presence
+-   verify the token
+-   extract info from payload
+-   next()
 
 #### Steps to write custom middleware
 
 middleware/auth.js
+
+#### Handle cookie
+
+-   Need to use cookie-parser library
+-   define this library as middleware
