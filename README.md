@@ -20,3 +20,15 @@ bcryptjs library used for encryption purpose
 - Expire the token after some amount of time
 - Token part -> Header, Payload, Signature
 - Library used - jsonwebtoken
+
+#### Protecting the route (using token)
+
+- use middleware
+- check for token presence
+- verify the token
+- extract info from payload
+- next()
+
+#### Steps to write custom middleware
+
+middleware/auth.js
