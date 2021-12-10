@@ -58,4 +58,30 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email && !password)
+      res.status(400).send("Please enter correct email and password");
+
+    const user = await User.findOne({ email });
+
+    if (!user && !(await bcrypt.compare(password, user.password)))
+      res.status(400).send("Email or password is incorrect!");
+    else {
+      const jwt_token = jwt.sign(
+        { user_id: user._id, email },
+        process.env.SECRET_KEY,
+        { expiresIn: "2h" }
+      );
+      user.token = jwt_token;
+      user.password = undefined;
+      res.status(200).json(user);
+    }
+  } catch (err) {
+    console.log(`${err}`);
+  }
+});
+
 module.exports = app;
